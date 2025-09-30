@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 
 const Footer = () => {
   const quickLinks = [
@@ -8,7 +16,7 @@ const Footer = () => {
     { name: "Loans", href: "#loans" },
     { name: "Services", href: "#services" },
     { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" }
+    { name: "Contact", href: "#contact" },
   ];
 
   const services = [
@@ -16,8 +24,7 @@ const Footer = () => {
     "Personal Loans",
     "Car Loans",
     "Business Loans",
-    "Investment Planning",
-    "Insurance Services"
+    "Insurance Services",
   ];
 
   const scrollToSection = (href: string) => {
@@ -33,22 +40,39 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Finance Pro</h3>
+            <h3 className="text-2xl font-bold">HAD Finance</h3>
             <p className="text-primary-foreground/80">
-              Your trusted financial partner for all your loan and investment needs. 
-              We help you achieve your financial dreams with expert guidance.
+              Your trusted financial partner for all your loan and investment
+              needs. We help you achieve your financial dreams with expert
+              guidance.
             </p>
             <div className="flex space-x-4">
-              <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
                 <Facebook className="h-5 w-5" />
               </Button>
-              <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
                 <Twitter className="h-5 w-5" />
               </Button>
-              <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
                 <Linkedin className="h-5 w-5" />
               </Button>
-              <Button size="icon" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
                 <Instagram className="h-5 w-5" />
               </Button>
             </div>
@@ -88,17 +112,21 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5" />
-                <span className="text-primary-foreground/80">+91 98765 43210</span>
+                <span className="text-primary-foreground/80">
+                  +91 94136 57763
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5" />
-                <span className="text-primary-foreground/80">dinesh@financepro.com</span>
+                <span className="text-primary-foreground/80">
+                  hadfinance@gmail.com
+                </span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 mt-1" />
                 <span className="text-primary-foreground/80">
-                  123 Finance Street<br />
-                  Business District, City - 400001
+                  B-154 kardhani , jhotwara , <br />
+                  jaipur 302044
                 </span>
               </div>
             </div>
@@ -106,20 +134,9 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-primary-foreground/80 mb-4 md:mb-0">
+          <div className="flex justify-center items-center">
+            <div className="text-primary-foreground/80 text-center">
               © 2024 Finance Pro. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm text-primary-foreground/80">
-              <button className="hover:text-primary-foreground transition-colors">
-                Privacy Policy
-              </button>
-              <button className="hover:text-primary-foreground transition-colors">
-                Terms of Service
-              </button>
-              <button className="hover:text-primary-foreground transition-colors">
-                Disclaimer
-              </button>
             </div>
           </div>
         </div>

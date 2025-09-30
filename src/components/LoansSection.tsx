@@ -32,20 +32,8 @@ const LoansSection = () => {
       features: ["Working capital", "Equipment financing", "Business expansion"],
       interestRate: "11.0%"
     },
-    {
-      icon: CreditCard,
-      title: "Credit Card",
-      description: "Enjoy cashless convenience with our feature-rich credit cards and reward programs.",
-      features: ["Reward points", "Cashback offers", "Zero annual fee"],
-      interestRate: "1.5%/month"
-    },
-    {
-      icon: GraduationCap,
-      title: "Education Loan",
-      description: "Invest in your future with our education loans for higher studies and skill development.",
-      features: ["100% course fees", "Moratorium period", "Tax benefits"],
-      interestRate: "9.5%"
-    }
+    
+     
   ];
 
   return (
@@ -61,7 +49,7 @@ const LoansSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
           {loanTypes.map((loan, index) => (
             <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardHeader className="text-center pb-4">

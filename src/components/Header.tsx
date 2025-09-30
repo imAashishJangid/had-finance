@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png"; // 👈 yaha import kar liya
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,9 +26,14 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold text-primary">
-            Finance Pro
+        <div className="flex items-center justify-evenly">
+          {/* 👇 Logo Image */}
+          <div className="flex items-center">
+            <img 
+              src={logo} 
+              alt="Finance Pro Logo" 
+              className="h-11 w-auto" // height = 40px, width auto adjust
+            />
           </div>
 
           {/* Desktop Navigation */}

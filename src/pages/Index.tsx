@@ -17,7 +17,6 @@ const Index = () => {
       <FinanceExplainer />
       <LoansSection />
       <TransparentBanner />
-      <FinanceCards />
       <ServicesSection />
       <AboutSection />
       <ContactForm />

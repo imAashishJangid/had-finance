@@ -14,18 +14,18 @@ const ContactForm = () => {
     email: "",
     phone: "",
     service: "",
-    message: ""
+    message: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.phone) {
       toast({
         title: "Required Fields Missing",
         description: "Please fill in all required fields.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -33,7 +33,8 @@ const ContactForm = () => {
     // Simulate form submission
     toast({
       title: "Message Sent Successfully!",
-      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+      description:
+        "Thank you for contacting us. We'll get back to you within 24 hours.",
     });
 
     // Reset form
@@ -42,14 +43,18 @@ const ContactForm = () => {
       email: "",
       phone: "",
       service: "",
-      message: ""
+      message: "",
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -57,27 +62,22 @@ const ContactForm = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+91 98765 43210", "+91 87654 32109"],
-      color: "text-primary"
+      details: ["+91 94136 57763", "+91 96364 02026"],
+      color: "text-primary",
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["dinesh@financepro.com", "support@financepro.com"],
-      color: "text-accent"
+      details: ["hadfinance@gmail.com", "support@financepro.com"],
+
+      color: "text-accent",
     },
     {
       icon: MapPin,
       title: "Office",
-      details: ["123 Finance Street", "Business District, City - 400001"],
-      color: "text-secondary"
+      details: ["B-154 kardhani , jhotwara , jaipur  302044"],
+      color: "text-secondary",
     },
-    {
-      icon: Clock,
-      title: "Working Hours",
-      details: ["Mon - Fri: 9:00 AM - 6:00 PM", "Sat: 10:00 AM - 4:00 PM"],
-      color: "text-primary"
-    }
   ];
 
   return (
@@ -88,8 +88,9 @@ const ContactForm = () => {
             Get in Touch
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your financial journey? Contact us today for a free consultation 
-            and let's discuss how we can help you achieve your financial goals.
+            Ready to start your financial journey? Contact us today for a free
+            consultation and let's discuss how we can help you achieve your
+            financial goals.
           </p>
         </div>
 
@@ -154,9 +155,7 @@ const ContactForm = () => {
                       <option value="personal-loan">Personal Loan</option>
                       <option value="car-loan">Car Loan</option>
                       <option value="business-loan">Business Loan</option>
-                      <option value="investment">Investment Planning</option>
                       <option value="insurance">Insurance</option>
-                      <option value="consultation">General Consultation</option>
                     </select>
                   </div>
                 </div>
@@ -173,7 +172,11 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <Button type="submit" className="w-full" size="lg">
+                <Button
+                  type="submit"
+                  className="w-full bg-[#316b80] text-white font-semibold hover:bg-[#255a6a] transition-colors duration-300 ease-in-out"
+                  size="lg"
+                >
                   Send Message
                 </Button>
               </form>
@@ -220,10 +223,13 @@ const ContactForm = () => {
                 Our financial experts are available 24/7 for urgent queries.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="secondary" className="text-primary font-semibold">
-                  Call Now: +91 98765 43210
+                <Button className="text-black bg-white  hover:text-white font-semibold">
+                  Call Now: +91 94136 57763
                 </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+                <Button
+                  variant="outline"
+                  className="border-white text-black bg-white hover:bg-white hover:text-primary"
+                >
                   WhatsApp Chat
                 </Button>
               </div>

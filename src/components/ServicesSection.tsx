@@ -83,28 +83,7 @@ const ServicesSection = () => {
           ))}
         </div>
 
-        {/* Additional Services */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {additionalServices.map((service, index) => (
-            <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300">
-              <CardContent className="p-8">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 rounded-full bg-primary/10">
-                    <service.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        
 
         {/* Service Commitment Banner */}
         <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 md:p-12 text-white text-center">
