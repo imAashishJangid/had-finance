@@ -136,7 +136,7 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
           <div className="flex justify-center items-center">
             <div className="text-primary-foreground/80 text-center">
-              © 2024 Finance Pro. All rights reserved.
+              © 2025 Finance Pro. All rights reserved.
             </div>
           </div>
         </div>

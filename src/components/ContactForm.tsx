@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ContactForm = () => {
@@ -69,7 +69,6 @@ const ContactForm = () => {
       icon: Mail,
       title: "Email",
       details: ["hadfinance@gmail.com", "support@financepro.com"],
-
       color: "text-accent",
     },
     {
@@ -223,15 +222,27 @@ const ContactForm = () => {
                 Our financial experts are available 24/7 for urgent queries.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="text-black bg-white  hover:text-white font-semibold">
-                  Call Now: +91 94136 57763
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-white text-black bg-white hover:bg-white hover:text-primary"
+                {/* Call Now Button */}
+                <a href="tel:+919413657763" className="w-full sm:w-auto">
+                  <Button className="text-black bg-white hover:text-white font-semibold w-full">
+                    Call Now: +91 94136 57763
+                  </Button>
+                </a>
+
+                {/* WhatsApp Chat Button */}
+                <a
+                  href="https://wa.me/919413657763"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto"
                 >
-                  WhatsApp Chat
-                </Button>
+                  <Button
+                    variant="outline"
+                    className="border-white text-black bg-white hover:bg-white hover:text-primary w-full"
+                  >
+                    WhatsApp Chat
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
