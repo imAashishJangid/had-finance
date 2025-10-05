@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+ 
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,13 +29,7 @@ const Header = () => {
         {/* ✅ Flexbox: logo left, nav+button right */}
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center">
-            <img
-              src={logo}
-              alt="Finance Pro Logo"
-              className="h-11 w-auto"
-            />
-          </div>
+           
 
           {/* Right Side: nav + button OR mobile menu button */}
           <div className="flex items-center space-x-6">

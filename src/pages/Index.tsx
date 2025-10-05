@@ -8,6 +8,8 @@ import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+
 
 const Index = () => {
   return (
@@ -21,6 +23,7 @@ const Index = () => {
       <AboutSection />
       <ContactForm />
       <Footer />
+      <ScrollToTopButton />
     </div>
   );
 };
