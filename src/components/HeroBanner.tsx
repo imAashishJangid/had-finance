@@ -36,9 +36,12 @@ const HeroBanner = () => {
 
             {/* ✅ Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="group">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => scrollToSection("#contact")} // 👈 scroll to finance section
+              >
                 Get Free Consultation
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
               <Button
                 variant="outline"
