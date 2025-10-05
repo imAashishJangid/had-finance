@@ -1,39 +1,44 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Home, User, Car, Building, CreditCard, GraduationCap } from "lucide-react";
+import { Home, User, Car, Building } from "lucide-react";
 
 const LoansSection = () => {
+  const navigate = useNavigate();
+
   const loanTypes = [
     {
+      id: "home-loan", // 👈 unique id/slug
       icon: Home,
       title: "Home Loan",
       description: "Achieve your dream of homeownership with our competitive home loan rates and flexible terms.",
       features: ["Up to 90% financing", "Lowest interest rates", "Quick approval"],
-      interestRate: "8.5%"
+      interestRate: "8.00%"
     },
     {
+      id: "personal-loan",
       icon: User,
       title: "Personal Loan",
       description: "Get instant funds for your personal needs with minimal documentation and fast processing.",
       features: ["No collateral required", "Same day approval", "Flexible repayment"],
-      interestRate: "10.5%"
+      interestRate: "10.00%"
     },
     {
+      id: "car-loan",
       icon: Car,
       title: "Car Loan",
       description: "Drive your dream car today with our attractive auto loan options and easy EMI plans.",
       features: ["Up to 85% financing", "New & used cars", "Insurance included"],
-      interestRate: "9.0%"
+      interestRate: "6.00%"
     },
     {
+      id: "business-loan",
       icon: Building,
       title: "Business Loan",
       description: "Fuel your business growth with our comprehensive business financing solutions.",
       features: ["Working capital", "Equipment financing", "Business expansion"],
-      interestRate: "11.0%"
+      interestRate: "11.00%"
     },
-    
-     
   ];
 
   return (
@@ -75,7 +80,11 @@ const LoansSection = () => {
                     </div>
                   ))}
                 </div>
-                <Button className="w-full" variant="outline">
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => navigate(`/loan/${loan.id}`)} // 👈 redirect with id
+                >
                   Apply Now
                 </Button>
               </CardContent>

@@ -2,6 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Shield, Users } from "lucide-react";
 
 const HeroBanner = () => {
+  // ✅ Smooth scroll function
+  const scrollToSection = (id: string) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       id="home"
@@ -26,16 +34,22 @@ const HeroBanner = () => {
               </p>
             </div>
 
+            {/* ✅ Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="group">
                 Get Free Consultation
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => scrollToSection("#finance")} // 👈 scroll to finance section
+              >
                 Learn More
               </Button>
             </div>
 
+            {/* ✅ Stats */}
             <div className="grid grid-cols-3 gap-8 pt-8">
               <div className="text-center">
                 <div className="flex justify-center mb-2">
@@ -65,38 +79,38 @@ const HeroBanner = () => {
             </div>
           </div>
 
-       <div className="relative">
-  <div className="bg-gradient-to-br from-[#3aa6c9]/10 to-[#316b80]/10 rounded-2xl p-8">
-    <div className="bg-card rounded-xl p-6 shadow-lg">
-      <h3 className="text-xl font-semibold mb-4">
-        Quick Financial Check
-      </h3>
-      <div className="space-y-4">
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">
-            Loan Approval Rate
-          </span>
-          <span className="font-semibold text-[#3aa6c9]">95%</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">
-            Processing Time
-          </span>
-          <span className="font-semibold text-[#316b80]">
-            24 Hours
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-muted-foreground">Interest Rate</span>
-          <span className="font-semibold text-[#3aa6c9]">
-            From 8.5%
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+          {/* ✅ Right Side Card */}
+          <div className="relative">
+            <div className="bg-gradient-to-br from-[#3aa6c9]/10 to-[#316b80]/10 rounded-2xl p-8">
+              <div className="bg-card rounded-xl p-6 shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">
+                  Quick Financial Check
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Loan Approval Rate
+                    </span>
+                    <span className="font-semibold text-[#3aa6c9]">95%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Processing Time
+                    </span>
+                    <span className="font-semibold text-[#316b80]">
+                      24 Hours
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Interest Rate</span>
+                    <span className="font-semibold text-[#3aa6c9]">
+                      From 8.5%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

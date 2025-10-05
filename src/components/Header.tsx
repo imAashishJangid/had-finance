@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png"; // 👈 yaha import kar liya
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,45 +26,50 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-evenly">
-          {/* 👇 Logo Image */}
+        {/* ✅ Flexbox: logo left, nav+button right */}
+        <div className="flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src={logo} 
-              alt="Finance Pro Logo" 
-              className="h-11 w-auto" // height = 40px, width auto adjust
+            <img
+              src={logo}
+              alt="Finance Pro Logo"
+              className="h-11 w-auto"
             />
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-colors"
+          {/* Right Side: nav + button OR mobile menu button */}
+          <div className="flex items-center space-x-6">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </button>
+              ))}
+            </nav>
+
+            {/* Desktop Button */}
+            <div className="hidden md:block">
+              <Button
+                variant="default"
+                onClick={() => scrollToSection("#contact")}
               >
-                {item.name}
-              </button>
-            ))}
-          </nav>
+                Get Started
+              </Button>
+            </div>
 
-          <div className="hidden md:block">
-            <Button 
-              variant="default"
-              onClick={() => scrollToSection("#contact")}
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              Get Started
-            </Button>
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
         {/* Mobile Navigation */}
@@ -80,7 +85,7 @@ const Header = () => {
                   {item.name}
                 </button>
               ))}
-              <Button 
+              <Button
                 variant="default"
                 onClick={() => scrollToSection("#contact")}
                 className="w-full"
