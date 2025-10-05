@@ -11,7 +11,11 @@ const loanDetailsData: any = {
     title: "Home Loan",
     description:
       "Our home loans are designed to make your dream home a reality with flexible repayment options.",
-    features: ["Up to 90% financing", "Lowest interest rates", "Quick approval"],
+    features: [
+      "Up to 90% financing",
+      "Lowest interest rates",
+      "Quick approval",
+    ],
     interestRate: "8.00%",
     icon: Home,
     extra: {
@@ -24,7 +28,11 @@ const loanDetailsData: any = {
     title: "Personal Loan",
     description:
       "Get instant personal loans for travel, education, or emergencies without collateral.",
-    features: ["No collateral required", "Same day approval", "Flexible repayment"],
+    features: [
+      "No collateral required",
+      "Same day approval",
+      "Flexible repayment",
+    ],
     interestRate: "10.00%",
     icon: User,
     extra: {
@@ -89,11 +97,12 @@ const LoanDetails = () => {
     <div className="container mx-auto px-4 pt-8 pb-16">
       {/* Loan Info */}
       <Card className="mb-12 shadow-lg">
-        <CardHeader className="text-center">
-          <loan.icon className="h-12 w-12 text-primary mx-auto mb-2" />
+        <CardHeader className="flex flex-col items-center text-center">
+          <loan.icon className="h-12 w-12 text-primary mb-2" />
           <CardTitle className="text-3xl">{loan.title}</CardTitle>
           <p className="text-muted-foreground mt-2">{loan.description}</p>
         </CardHeader>
+
         <CardContent>
           <div className="grid md:grid-cols-2 gap-6">
             {/* Features */}
@@ -112,10 +121,18 @@ const LoanDetails = () => {
             {/* Extra Info */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Details</h3>
-              <p><strong>Interest Rate:</strong> {loan.interestRate}</p>
-              <p><strong>Tenure:</strong> {loan.extra.tenure}</p>
-              <p><strong>Eligibility:</strong> {loan.extra.eligibility}</p>
-              <p><strong>Documents:</strong> {loan.extra.documents.join(", ")}</p>
+              <p>
+                <strong>Interest Rate:</strong> {loan.interestRate}
+              </p>
+              <p>
+                <strong>Tenure:</strong> {loan.extra.tenure}
+              </p>
+              <p>
+                <strong>Eligibility:</strong> {loan.extra.eligibility}
+              </p>
+              <p>
+                <strong>Documents:</strong> {loan.extra.documents.join(", ")}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -167,7 +184,7 @@ const LoanDetails = () => {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
-              <div>
+            <div>
               <Label htmlFor="message">Additional Message</Label>
               <Input
                 id="message"

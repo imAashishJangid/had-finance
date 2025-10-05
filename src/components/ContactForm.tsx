@@ -5,10 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 const ContactForm = () => {
-  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,25 +15,39 @@ const ContactForm = () => {
     message: "",
   });
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.name || !formData.email || !formData.phone) {
-      toast({
-        title: "Required Fields Missing",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
+      alert("Please fill in all required fields.");
       return;
     }
 
-    // Simulate form submission
-    toast({
-      title: "Message Sent Successfully!",
-      description:
-        "Thank you for contacting us. We'll get back to you within 24 hours.",
-    });
+    // Prepare WhatsApp message
+    const whatsappMessage = `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service: ${formData.service || "N/A"}
+Message: ${formData.message || "N/A"}
+    `;
+
+    const whatsappNumber = "919413657763";
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
+    // Redirect to WhatsApp
+    window.open(whatsappURL, "_blank");
 
     // Reset form
     setFormData({
@@ -44,17 +56,6 @@ const ContactForm = () => {
       phone: "",
       service: "",
       message: "",
-    });
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
     });
   };
 
@@ -74,7 +75,7 @@ const ContactForm = () => {
     {
       icon: MapPin,
       title: "Office",
-      details: ["B-154 kardhani , jhotwara , jaipur  302044"],
+      details: ["B-154 kardhani , jhotwara , jaipur 302044"],
       color: "text-secondary",
     },
   ];
@@ -147,7 +148,7 @@ const ContactForm = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     >
                       <option value="">Select a service</option>
                       <option value="home-loan">Home Loan</option>

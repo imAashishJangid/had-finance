@@ -82,11 +82,14 @@ const AboutSection = () => {
               <Button
                 size="lg"
                 className="bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors duration-300 ease-in-out"
+                onClick={() => {
+                  const contactSection = document.getElementById("contact");
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
               >
                 Schedule Consultation
-              </Button>
-              <Button size="lg" variant="outline">
-                View Credentials
               </Button>
             </div>
           </div>

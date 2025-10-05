@@ -1,7 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Calculator } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const TransparentBanner = () => {
+  const navigate = useNavigate();
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="py-20 bg-gradient-to-r from-[#316b80]/95 to-[#3aa6c9]/95 text-white relative overflow-hidden">
       {/* Background Pattern */}
@@ -31,9 +41,7 @@ const TransparentBanner = () => {
               </div>
             </div>
             <h3 className="text-xl font-semibold mb-2">Instant Support</h3>
-            <p className="opacity-90">
-              24/7 customer support for all your queries
-            </p>
+            <p className="opacity-90">24/7 customer support for all your queries</p>
           </div>
 
           <div className="text-center">
@@ -61,19 +69,17 @@ const TransparentBanner = () => {
           <Button
             size="lg"
             variant="secondary"
-            className="bg-white text-black font-semibold 
-             hover:bg-black hover:text-white 
-             transition-colors duration-300 ease-in-out"
+            className="bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors duration-300 ease-in-out"
+            onClick={scrollToContact} // Scroll to contact section
           >
             Get Free Consultation
           </Button>
 
-           <Button
+          <Button
             size="lg"
             variant="secondary"
-            className="bg-white text-black font-semibold 
-             hover:bg-black hover:text-white 
-             transition-colors duration-300 ease-in-out"
+            className="bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors duration-300 ease-in-out"
+            onClick={() => navigate("/emi-calculator")} // Route change
           >
             Calculate EMI
           </Button>
