@@ -61,20 +61,20 @@ const Footer = () => {
               >
                 <Twitter className="h-5 w-5" />
               </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
+
+              <a
+                href="https://www.instagram.com/had_finance_and_insurance?igsh=eGEzeXptd2xzYmpz"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Linkedin className="h-5 w-5" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <Instagram className="h-5 w-5" />
-              </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                >
+                  <Instagram className="h-5 w-5" />
+                </Button>
+              </a>
             </div>
           </div>
 
@@ -136,7 +136,7 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
           <div className="flex justify-center items-center">
             <div className="text-primary-foreground/80 text-center">
-              © 2025 Had Finance. All rights reserved.
+              © 2025 HAD Finance. All rights reserved.
             </div>
           </div>
         </div>
