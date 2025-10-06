@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
- 
+import logo from "@/assets/logo.png"; // ✅ logo import
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,10 +29,20 @@ const Header = () => {
         {/* ✅ Flexbox: logo left, nav+button right */}
         <div className="flex items-center justify-between">
           {/* Logo */}
-           
+          <div className="flex items-center md:ml-2"> 
+            {/* 👆 nav ke equal gap ke liye md:ml-2 add */}
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-10 w-auto cursor-pointer"
+              onClick={() => scrollToSection("#home")}
+            />
+          </div>
 
           {/* Right Side: nav + button OR mobile menu button */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-6 md:mr-2">
+            {/* 👆 nav side me bhi md:mr-2 diya taaki dono side equal ho */}
+
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
