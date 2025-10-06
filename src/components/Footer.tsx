@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Phone,
@@ -5,11 +6,16 @@ import {
   MapPin,
   Facebook,
   Twitter,
-  Linkedin,
   Instagram,
 } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
+  const footerRef = useRef<HTMLDivElement>(null);
+
   const quickLinks = [
     { name: "Home", href: "#home" },
     { name: "About Finance", href: "#finance" },
@@ -29,13 +35,84 @@ const Footer = () => {
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    if (!footerRef.current) return;
+
+    // Animate all columns (Company Info, Quick Links, Services, Contact Info)
+    const columns = gsap.utils.toArray<HTMLElement>(
+      footerRef.current.querySelectorAll(".grid > div")
+    );
+
+    gsap.fromTo(
+      columns,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    // Animate social icons
+    const socialIcons = gsap.utils.toArray<HTMLElement>(
+      footerRef.current.querySelectorAll("button svg, a svg")
+    );
+
+    gsap.fromTo(
+      socialIcons,
+      { opacity: 0, y: 20, scale: 0.8 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    // Animate bottom copyright
+    const copyright = footerRef.current.querySelector(
+      ".text-center"
+    ) as HTMLElement;
+
+    if (copyright) {
+      gsap.fromTo(
+        copyright,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 90%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer ref={footerRef} className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -61,7 +138,6 @@ const Footer = () => {
               >
                 <Twitter className="h-5 w-5" />
               </Button>
-
               <a
                 href="https://www.instagram.com/had_finance_and_insurance?igsh=eGEzeXptd2xzYmpz"
                 target="_blank"

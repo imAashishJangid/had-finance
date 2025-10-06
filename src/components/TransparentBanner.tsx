@@ -1,9 +1,17 @@
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TransparentBanner = () => {
   const navigate = useNavigate();
+  const headingRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -11,6 +19,55 @@ const TransparentBanner = () => {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    // Heading animation
+    if (headingRef.current) {
+      gsap.from(headingRef.current.children, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 80%",
+        },
+      });
+    }
+
+    // Features animation
+    if (featuresRef.current) {
+      const featureElements = Array.from(featuresRef.current.children) as HTMLElement[];
+      gsap.from(featureElements, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        stagger: 0.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: featuresRef.current,
+          start: "top 85%",
+        },
+      });
+    }
+
+    // Buttons animation
+    if (buttonsRef.current) {
+      const buttonElements = Array.from(buttonsRef.current.children) as HTMLElement[];
+      gsap.from(buttonElements, {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: buttonsRef.current,
+          start: "top 90%",
+        },
+      });
+    }
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-r from-[#316b80]/95 to-[#3aa6c9]/95 text-white relative overflow-hidden">
@@ -23,7 +80,8 @@ const TransparentBanner = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
+        {/* Heading */}
+        <div className="text-center mb-12" ref={headingRef}>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             Ready to Transform Your Financial Future?
           </h2>
@@ -33,7 +91,8 @@ const TransparentBanner = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        {/* Features */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12" ref={featuresRef}>
           <div className="text-center">
             <div className="flex justify-center mb-4">
               <div className="p-4 rounded-full bg-white/10 backdrop-blur">
@@ -65,12 +124,13 @@ const TransparentBanner = () => {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center" ref={buttonsRef}>
           <Button
             size="lg"
             variant="secondary"
             className="bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors duration-300 ease-in-out"
-            onClick={scrollToContact} // Scroll to contact section
+            onClick={scrollToContact}
           >
             Get Free Consultation
           </Button>
@@ -79,7 +139,7 @@ const TransparentBanner = () => {
             size="lg"
             variant="secondary"
             className="bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors duration-300 ease-in-out"
-            onClick={() => navigate("/emi-calculator")} // Route change
+            onClick={() => navigate("/emi-calculator")}
           >
             Calculate EMI
           </Button>

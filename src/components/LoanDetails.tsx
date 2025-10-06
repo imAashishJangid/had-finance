@@ -3,14 +3,82 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Home, User, Car, Building } from "lucide-react";
+import { Home, User, Car, Building, CircleDollarSign, Shield } from "lucide-react";
 import { useState } from "react";
 
 const loanDetailsData: any = {
-  "home-loan": { title: "Home Loan", description: "Our home loans are designed to make your dream home a reality with flexible repayment options.", features: ["Up to 90% financing", "Lowest interest rates", "Quick approval"], interestRate: "8.00%", icon: Home, extra: { tenure: "Up to 30 years", eligibility: "Salaried & self-employed individuals", documents: ["ID proof", "Income proof", "Property documents"] } },
-  "personal-loan": { title: "Personal Loan", description: "Get instant personal loans for travel, education, or emergencies without collateral.", features: ["No collateral required", "Same day approval", "Flexible repayment"], interestRate: "10.00%", icon: User, extra: { tenure: "Up to 5 years", eligibility: "Salaried individuals with min. 20k/month income", documents: ["ID proof", "Bank statement", "Salary slips"] } },
-  "car-loan": { title: "Car Loan", description: "Buy your dream car with our attractive auto loan schemes.", features: ["Up to 85% financing", "New & used cars", "Insurance included"], interestRate: "6.00%", icon: Car, extra: { tenure: "Up to 7 years", eligibility: "18+ years old, valid driving license", documents: ["ID proof", "Income proof", "Car quotation"] } },
-  "business-loan": { title: "Business Loan", description: "Grow your business with easy business loans.", features: ["Working capital", "Equipment financing", "Business expansion"], interestRate: "11.00%", icon: Building, extra: { tenure: "Up to 10 years", eligibility: "Business vintage of at least 2 years", documents: ["ID proof", "Business registration", "Bank statements"] } },
+  "home-loan": {
+    title: "Home Loan",
+    description: "Our home loans are designed to make your dream home a reality with flexible repayment options.",
+    features: ["Up to 90% financing", "Lowest interest rates", "Quick approval"],
+    interestRate: "8.00%",
+    icon: Home,
+    extra: {
+      tenure: "Up to 30 years",
+      eligibility: "Salaried & self-employed individuals",
+      documents: ["ID proof", "Income proof", "Property documents"]
+    }
+  },
+  "personal-loan": {
+    title: "Personal Loan",
+    description: "Get instant personal loans for travel, education, or emergencies without collateral.",
+    features: ["No collateral required", "Same day approval", "Flexible repayment"],
+    interestRate: "10.00%",
+    icon: User,
+    extra: {
+      tenure: "Up to 5 years",
+      eligibility: "Salaried individuals with min. 20k/month income",
+      documents: ["ID proof", "Bank statement", "Salary slips"]
+    }
+  },
+  "car-loan": {
+    title: "Car Loan",
+    description: "Buy your dream car with our attractive auto loan schemes.",
+    features: ["Up to 85% financing", "New & used cars", "Insurance included"],
+    interestRate: "6.00%",
+    icon: Car,
+    extra: {
+      tenure: "Up to 7 years",
+      eligibility: "18+ years old, valid driving license",
+      documents: ["ID proof", "Income proof", "Car quotation"]
+    }
+  },
+  "business-loan": {
+    title: "Business Loan",
+    description: "Grow your business with easy business loans.",
+    features: ["Working capital", "Equipment financing", "Business expansion"],
+    interestRate: "11.00%",
+    icon: Building,
+    extra: {
+      tenure: "Up to 10 years",
+      eligibility: "Business vintage of at least 2 years",
+      documents: ["ID proof", "Business registration", "Bank statements"]
+    }
+  },
+  "gold-loan": {
+    title: "Gold Loan",
+    description: "Get instant cash by pledging your gold with minimal documentation and competitive rates.",
+    features: ["Quick approval", "Safe & secure", "Flexible repayment options"],
+    interestRate: "10.00%",
+    icon: CircleDollarSign,
+    extra: {
+      tenure: "Up to 2 years",
+      eligibility: "Anyone owning gold jewelry",
+      documents: ["ID proof", "Gold valuation certificate"]
+    }
+  },
+  "insurance": {
+    title: "Insurance",
+    description: "Protect yourself and your loved ones with our customized insurance solutions.",
+    features: ["Life & Health coverage", "Affordable premiums", "Easy claim process"],
+    interestRate: "N/A",
+    icon: Shield,
+    extra: {
+      tenure: "Varies by plan",
+      eligibility: "All age groups",
+      documents: ["ID proof", "Nominee details"]
+    }
+  }
 };
 
 const LoanDetails = () => {
@@ -21,23 +89,35 @@ const LoanDetails = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState("");
-  const [messsage, setMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const [insuranceType, setInsuranceType] = useState(""); // Dropdown selection
+  const [otherInsurance, setOtherInsurance] = useState(""); // If "Other" selected
 
-  const isFormValid = name && email && phone && amount && messsage;
+  // Validation logic
+  const isInsurance = loanType === "insurance";
+  const isFormValid = name && email && phone && message && (isInsurance ? (insuranceType && (insuranceType !== "Other" || otherInsurance)) : amount);
 
   const handleSubmit = () => {
     if (!isFormValid) return;
+
     const phoneNumber = "9413657763";
-    const message = encodeURIComponent(
-      `Hi, I want to apply for ${loan.title}.\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nLoan Amount: ${amount}\nMessage: ${messsage}`
+    let insuranceMessage = "";
+    if (isInsurance) {
+      insuranceMessage = insuranceType === "Other" ? `Insurance Type: ${otherInsurance}` : `Insurance Type: ${insuranceType}`;
+    }
+
+    const whatsappMessage = encodeURIComponent(
+      `Hi, I want to apply for ${loan.title}.\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n${isInsurance ? insuranceMessage : `Loan Amount: ${amount}`}\nMessage: ${message}`
     );
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+
+    window.open(`https://wa.me/${phoneNumber}?text=${whatsappMessage}`, "_blank");
   };
 
   if (!loan) return <div className="p-8 text-center">Loan not found.</div>;
 
   return (
     <div className="container mx-auto px-4 pt-8 pb-16">
+      {/* Loan Overview */}
       <Card className="mb-12 shadow-lg">
         <CardHeader className="flex flex-col items-center text-center">
           <loan.icon className="h-12 w-12 text-primary mb-2" />
@@ -69,6 +149,7 @@ const LoanDetails = () => {
         </CardContent>
       </Card>
 
+      {/* Application Form */}
       <Card className="shadow-lg">
         <CardHeader>
           <CardTitle className="text-2xl">Apply for {loan.title}</CardTitle>
@@ -87,13 +168,42 @@ const LoanDetails = () => {
               <Label htmlFor="phone">Phone Number</Label>
               <Input id="phone" type="tel" placeholder="Enter your phone number" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
-            <div>
-              <Label htmlFor="amount">Loan Amount</Label>
-              <Input id="amount" type="number" placeholder="Enter desired loan amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
-            </div>
+
+            {/* Conditional Fields */}
+            {isInsurance ? (
+              <div>
+                <Label htmlFor="insuranceType">Select Insurance Type</Label>
+                <select
+                  id="insuranceType"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  value={insuranceType}
+                  onChange={(e) => setInsuranceType(e.target.value)}
+                >
+                  <option value="">-- Select --</option>
+                  <option value="Vehicle Insurance">Vehicle Insurance</option>
+                  <option value="Life Insurance">Life Insurance</option>
+                  <option value="Other">Other</option>
+                </select>
+                {insuranceType === "Other" && (
+                  <div className="mt-2">
+                    <Input
+                      placeholder="Specify other insurance type"
+                      value={otherInsurance}
+                      onChange={(e) => setOtherInsurance(e.target.value)}
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div>
+                <Label htmlFor="amount">Loan Amount</Label>
+                <Input id="amount" type="number" placeholder="Enter desired loan amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+              </div>
+            )}
+
             <div>
               <Label htmlFor="message">Additional Message</Label>
-              <Input id="message" placeholder="Enter any extra details" value={messsage} onChange={(e) => setMessage(e.target.value)} />
+              <Input id="message" placeholder="Enter any extra details" value={message} onChange={(e) => setMessage(e.target.value)} />
             </div>
 
             <Button

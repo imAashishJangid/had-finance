@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -15,146 +19,159 @@ const ContactForm = () => {
     message: "",
   });
 
+  const headingRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const contactInfoRef = useRef<HTMLDivElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  // Heading Animation
+  if (headingRef.current) {
+    gsap.from(headingRef.current, {
+      opacity: 0,
+      y: 40,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%", // Adjust to your preference
+        toggleActions: "play none none none",
+      },
+    });
+  }
+
+  // Form Inputs Animation
+  if (formRef.current) {
+    const inputs = gsap.utils.toArray<HTMLElement>(
+      formRef.current.querySelectorAll("input, textarea, select, button")
+    );
+    gsap.from(inputs, {
+      opacity: 0,
+      y: 40,
+      duration: 0.6,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: formRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+
+  // Contact Info Cards Animation
+  if (contactInfoRef.current) {
+    const cards = gsap.utils.toArray<HTMLElement>(contactInfoRef.current.children);
+    gsap.from(cards, {
+      opacity: 0,
+      y: 50,
+      duration: 0.6,
+      stagger: 0.25,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: contactInfoRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+
+  // Banner Animation
+  if (bannerRef.current) {
+    gsap.from(bannerRef.current, {
+      opacity: 0,
+      scale: 0.95,
+      y: 40,
+      duration: 0.8,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: bannerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+}, []);
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!formData.name || !formData.email || !formData.phone) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    // Prepare WhatsApp message
-    const whatsappMessage = `
-Name: ${formData.name}
+    const whatsappMessage = `Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 Service: ${formData.service || "N/A"}
-Message: ${formData.message || "N/A"}
-    `;
+Message: ${formData.message || "N/A"}`;
 
     const whatsappNumber = "919413657763";
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       whatsappMessage
     )}`;
 
-    // Redirect to WhatsApp
     window.open(whatsappURL, "_blank");
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: "",
-    });
+    setFormData({ name: "", email: "", phone: "", service: "", message: "" });
   };
 
   const contactInfo = [
-    {
-      icon: Phone,
-      title: "Phone",
-      details: ["+91 94136 57763", "+91 96364 02026"],
-      color: "text-primary",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      details: ["hadfinance@gmail.com", "support@financepro.com"],
-      color: "text-accent",
-    },
-    {
-      icon: MapPin,
-      title: "Office",
-      details: ["B-154 kardhani , jhotwara , jaipur 302044"],
-      color: "text-secondary",
-    },
+    { icon: Phone, title: "Phone", details: ["+91 94136 57763", "+91 96364 02026"], color: "text-primary" },
+    { icon: Mail, title: "Email", details: ["hadfinance@gmail.com", "support@financepro.com"], color: "text-accent" },
+    { icon: MapPin, title: "Office", details: ["B-154 kardhani , jhotwara , jaipur 302044"], color: "text-secondary" },
   ];
 
   return (
     <section id="contact" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Get in Touch
-          </h2>
+        {/* Heading */}
+        <div ref={headingRef} className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Get in Touch</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Ready to start your financial journey? Contact us today for a free
-            consultation and let's discuss how we can help you achieve your
-            financial goals.
+            Ready to start your financial journey? Contact us today for a free consultation.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {/* Form */}
           <Card className="border-none shadow-lg">
             <CardHeader>
               <CardTitle className="text-2xl">Send us a Message</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Enter your full name"
-                      required
-                    />
+                    <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your full name" required />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Enter your email"
-                      required
-                    />
+                    <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number *</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="Enter your phone number"
-                      required
-                    />
+                    <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="Enter your phone number" required />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="service">Service Required</Label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                    >
+                    <select id="service" name="service" value={formData.service} onChange={handleChange} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
                       <option value="">Select a service</option>
                       <option value="home-loan">Home Loan</option>
                       <option value="personal-loan">Personal Loan</option>
                       <option value="car-loan">Car Loan</option>
                       <option value="business-loan">Business Loan</option>
+                       <option value="gold-loan">Gold Loan</option>
                       <option value="insurance">Insurance</option>
                     </select>
                   </div>
@@ -162,50 +179,31 @@ Message: ${formData.message || "N/A"}
 
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your financial requirements..."
-                    rows={4}
-                  />
+                  <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your financial requirements..." rows={4} />
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full bg-[#316b80] text-white font-semibold hover:bg-[#255a6a] transition-colors duration-300 ease-in-out"
-                  size="lg"
-                >
+                <Button type="submit" className="w-full bg-[#316b80] text-white font-semibold hover:bg-[#255a6a] transition-colors duration-300 ease-in-out" size="lg">
                   Send Message
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Contact Information
-              </h3>
-              <div className="grid gap-6">
-                {contactInfo.map((info, index) => (
-                  <Card key={index} className="border-none shadow-lg">
+              <h3 className="text-2xl font-bold text-foreground mb-6">Contact Information</h3>
+              <div ref={contactInfoRef} className="grid gap-6">
+                {contactInfo.map((info, idx) => (
+                  <Card key={idx} className="border-none shadow-lg">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
                         <div className="p-3 rounded-full bg-muted">
                           <info.icon className={`h-6 w-6 ${info.color}`} />
                         </div>
                         <div>
-                          <h4 className="text-lg font-semibold text-foreground mb-2">
-                            {info.title}
-                          </h4>
-                          {info.details.map((detail, idx) => (
-                            <p key={idx} className="text-muted-foreground">
-                              {detail}
-                            </p>
-                          ))}
+                          <h4 className="text-lg font-semibold text-foreground mb-2">{info.title}</h4>
+                          {info.details.map((detail, i) => <p key={i} className="text-muted-foreground">{detail}</p>)}
                         </div>
                       </div>
                     </CardContent>
@@ -214,35 +212,16 @@ Message: ${formData.message || "N/A"}
               </div>
             </div>
 
-            {/* Quick Contact Banner */}
-            <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
-              <h3 className="text-xl font-bold mb-4">
-                Need Immediate Assistance?
-              </h3>
-              <p className="mb-6 opacity-90">
-                Our financial experts are available 24/7 for urgent queries.
-              </p>
+            {/* Banner */}
+            <div ref={bannerRef} className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
+              <h3 className="text-xl font-bold mb-4">Need Immediate Assistance?</h3>
+              <p className="mb-6 opacity-90">Our financial experts are available 24/7 for urgent queries.</p>
               <div className="flex flex-col sm:flex-row gap-4">
-                {/* Call Now Button */}
                 <a href="tel:+919413657763" className="w-full sm:w-auto">
-                  <Button className="text-black bg-white hover:text-white font-semibold w-full">
-                    Call Now: +91 94136 57763
-                  </Button>
+                  <Button className="text-black bg-white hover:text-white font-semibold w-full">Call Now: +91 94136 57763</Button>
                 </a>
-
-                {/* WhatsApp Chat Button */}
-                <a
-                  href="https://wa.me/919413657763"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto"
-                >
-                  <Button
-                    variant="outline"
-                    className="border-white text-black bg-white hover:bg-white hover:text-primary w-full"
-                  >
-                    WhatsApp Chat
-                  </Button>
+                <a href="https://wa.me/919413657763" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                  <Button variant="outline" className="border-white text-black bg-white hover:bg-white hover:text-primary w-full">WhatsApp Chat</Button>
                 </a>
               </div>
             </div>
