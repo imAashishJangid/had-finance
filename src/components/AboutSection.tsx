@@ -144,24 +144,29 @@ const AboutSection = () => {
         <div ref={headerRef} className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">About Your Financial Advisor</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Meet Ashish jangid, your trusted finance advisor with years of experience in helping clients achieve their financial dreams.
+            Meet Dinesh Choudhary, your trusted finance advisor with years of experience in helping clients achieve their financial dreams.
           </p>
         </div>
 
         {/* Image + Text Grid */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           <div ref={imageRef} className="order-1 lg:order-1 flex justify-center">
+             <img
+    src={dineshImage}
+    alt="Ashish Jangid"
+    className="w-full max-w-md rounded-2xl object-cover shadow-lg"
+  />
            </div>
 
           <div className="space-y-6 order-2 lg:order-2">
-            <h3 ref={nameRef} className="text-2xl md:text-3xl font-bold text-foreground mb-4">Ashish jangid</h3>
+            <h3 ref={nameRef} className="text-2xl md:text-3xl font-bold text-foreground mb-4">Dinesh Choudhary</h3>
             <p ref={titleRef} className="text-lg text-primary font-semibold mb-4">Certified Finance Advisor</p>
             <div ref={aboutRef}>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 With over 3 years of dedicated experience in the financial services industry, Dinesh has successfully guided more than 100 clients towards achieving their financial goals. His expertise spans across loans, investments, insurance, and comprehensive financial planning.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Ashish believes in building long-term relationships with his clients through transparent communication, personalized service, and ethical practices.
+                Dinesh believes in building long-term relationships with his clients through transparent communication, personalized service, and ethical practices.
               </p>
             </div>
 
